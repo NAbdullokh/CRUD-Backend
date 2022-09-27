@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { product } from "../../data";
-import { BtnWrapper, Button, Card, Container, Input } from "./style";
+import { ButtonNotice, Card, Container, Flexing } from "./style";
 
 const Body = () => {
   const [data, setData] = useState([]);
@@ -36,24 +37,29 @@ const Body = () => {
 
   return (
     <Container>
-      <BtnWrapper>
-        <Input
-          type="text"
-          placeholder="Search"
+      <Flexing>
+        <Container.Input
           onChange={(e) => setText(e.target.value)}
+          type={"text"}
+          placeholder="Search"
         />
-        <Button onClick={getSearch}>Search</Button>
-      </BtnWrapper>
-      {product.map((value) => {
+        <Container.Btn onClick={getSearch}>Search</Container.Btn>
+      </Flexing>
+
+      {data.map((value) => {
         return (
-          <Card>
-            <img src={value.image} alt="" />
-            <h3>{value.title}</h3>
-            <h5>{value.desc}</h5>
-            <BtnWrapper>
-              <Button>Update</Button>
-              <Button onClick={() => getDelete(value._id)}>Delete</Button>
-            </BtnWrapper>
+          <Card key={value?._id}>
+            <Card.Img src={value?.image} alt="imgs" />
+            <Card.Title>{value?.title}</Card.Title>
+            <Card.Descr>{value?.descr}</Card.Descr>
+            <Flexing>
+              <Link to={`edit:${value._id}`}>
+                <ButtonNotice colored="blue">Update</ButtonNotice>
+              </Link>
+              <ButtonNotice onClick={() => getDelete(value?._id)} colored="red">
+                Delete
+              </ButtonNotice>
+            </Flexing>
           </Card>
         );
       })}
