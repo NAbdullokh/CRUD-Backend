@@ -53,7 +53,7 @@ const Body = () => {
             <Card.Title>{value?.title}</Card.Title>
             <Card.Descr>{value?.descr}</Card.Descr>
             <Flexing>
-              <Link to={`edit:${value._id}`}>
+              <Link to={`/edit/:${value._id}`}>
                 <ButtonNotice colored="blue">Update</ButtonNotice>
               </Link>
               <ButtonNotice onClick={() => getDelete(value?._id)} colored="red">
